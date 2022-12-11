@@ -1,0 +1,885 @@
+---
+title: ""
+author: ""
+date: ''
+output: html_document
+---
+
+<style type="text/css">
+
+body, td {
+   font-size: 16px;
+   
+}
+code.r{
+  font-size: 15px;
+  
+}
+pre {
+  font-size: 15px
+}
+</style>
+
+---
+
+
+<BR>
+<BR>
+<HTML>
+<HEAD>
+<BODY>
+<CENTER>
+<FONT SIZE=5, COLOR="#038713">
+<BR> <B> PROBABILITY THEORY AND INTRODUCTORY STATISTICS </B>
+<BR> SWAPNESH TIWARI
+<BR> ANALYZING LIZARD METRICS
+<BR> Date :  `r format(Sys.time(), "%d %B, %Y")`
+</FONT>
+</CENTER>
+</HEAD>
+<BR>
+<BR>
+<BR>
+
+---
+
+<BR>
+
+<CENTER>
+<P><BR>
+<FONT SIZE=3, COLOR="#051D6B">
+<B> <U> INTRO </U> </B> 
+</FONT>
+</CENTER>
+
+<BR>
+<FONT SIZE=2.5, align = justify>
+
+<B>Data set Description:</B>  
+
+This data set is an XLSX (Microsoft Excel file) which contains three variables one about one categorical variable: Sex of the lizard, and another two about the numerical length of the lizard and heart rate of the lizard. The length of the Lizard is described as centimeters. This data set was designed in June 2022. This data set consists of a total of 120 observations.  
+Body metrics are an important aspect when we talk about the blood supply of any living creature, therefore in this data set, we will analyze the length and the heart rate since the heart rate and cardiac output of a lizard are directly proportional to the length of the lizard, Meiri, S. (2010).
+
+
+
+<B>Hypothesis Testing in Medical Industry: </B>  
+
+Hypothesis is something which is based on the educated guess or in simple words assumptions about the population. The first ever hypothesis testing was done and invented by Karl Pearson in 1857; a scientist from London, He invented this test to be used in variety of different fields such as in the field of Biology, Economics and Psychology, Magnello, M. E. (2005). In the above mentioned study by Pearson, K. published in 1922 states that when we take substantial amount of observations, we do not have any technique through which we can find the mean of population 1 and population 2 therefore to make this possible he invented hypothesis testing which is generally getting predictions for the outcome according to statistical data. According to a famous book written by Bluman, A.G published in 2009 defined Hypothesis in two terms:
+
+1. Null Hypothesis: Bluman defines Null Hypothesis as a statistical hypothesis that shows zero difference between the two distinct population groups, the null hypothesis is denoted by H0.
+
+2. Alternative Hypothesis: Bluman defines an alternative hypothesis as another term that states that there is a significant level of difference between the two population groups, basically it is an element that helps in rejecting the null hypothesis.
+
+Let’s take an example for Hypothesis,   
+
+A statistician wants to know the mean heart rate of the lizards therefore the Hypothesis here will be:  
+H0: U = 1.68  
+H1: U = =/= 1.68
+
+Therefore, the hypothesis states that:
+Null Hypothesis: mean of the lizard’s heart rate is 1.68 and will not change, whereas Alternative Hypothesis: tell the lizard’s heart rate is not equal to 1.68 or is more or less than 1.68.
+
+In the medical industry, hypothesis testing is one of the important aspects in all fields, the most important of hypothesis testing is to plan, implement and get the desired outcome. The medical industry always experiments on two groups, one is the control group and another one is the focus group, these two groups define the result of every clinical trial, therefore to test the difference between a control and a focus group hypothesis testing is used. 
+Let’s take an example: The statement of the problem here is to see whether vaccination against Covid - 19 is effective in decreasing the severity of Covid - 19 symptoms. So, our hypothesis here is Vaccination against Covid -19 helps in reducing the severity of Covid - 19 but on the other hand, the null hypothesis does not see any difference, it states that vaccination and Covid - 19 are independent of each other.
+AS we saw the examples now, we know that the null hypothesis and alternative hypothesis both are opposite to each other and the only reason we do hypothesis testing is to reject the null hypothesis.
+
+
+<B>Z-test, T-Test and F-Test in comparing two population parameters: </B>  
+
+According to Bluman, A.G published book in 2009 which describes different test required to find statistical differences between the two population parameters,   
+
+1. Z-Test: According to Bluman In hypothesis testing we need to calculate the z value, which can be only be used whenever the mean of the two population parameters is equal between the two population.
+
+<CENTER>
+![](C:\\Users\\User\\OneDrive\\Documents\\ALY_6010\\Assingment_4\\2 sample test.jpg)
+  
+The above figure 1 shows the formula for the Z-Test to calculate difference between two population parameter.  
+</Center>
+<BR>
+  
+2. T-Test: According to Bluman, T-test is used most commonly when the variables used in the test are independent of each other, and another will be when we don't know the mean of the whole population and if they are equal between each other, using two variables, one variable describes the group and other measures the interest.
+
+<CENTER>
+![](C:\\Users\\User\\OneDrive\\Documents\\ALY_6010\\Assingment_4\\T test.jpg)
+  
+The above figure 2 shows the formula for the T-Test to calculate difference between two population parameter.
+</Center>  
+  
+<BR>
+
+3. F-Test: According to study by R.A. Fisher published in 1928  defined F test as the ratio between the two variances which is V1 and other is V2 which is also described in a similar study by Duncan, D. B. published in 1955, states that if null hypothesis which is denoted by H0 defines mean and variance to be zero therefore the F statistics would be equal to one, Duncan also stated that F-test is based on two theoretical explanation: all the samples should have normal distribution and samples should be completely independent of each other. If these conditions are met than null hypothesis cannot be rejected and therefore the data has a distribution called as F distribution.
+
+<CENTER>
+![](C:\\Users\\User\\OneDrive\\Documents\\ALY_6010\\Assingment_4\\F test.jpg)
+  
+The above figure 3 shows the formula for the F-Test to calculate difference between two population parameter.
+</Center>  
+  
+<BR>
+<B>Importance of referencing in paper </B>  
+Academic referencing and citing every content is an important aspect of student integrity, as a data scientist it is important to be well oriented with citing resources since the use of articles and other academic resources is of great importance and is needed t make papers more credible and worthy since improper citations can reduce the overall quality of the paper published, Santini, A. (2018).   
+Improper citing in the medical industry can also end up in difficult consequences, which can also result in legal action against the author who was charged with that guilt, in the biomedical industry it is important to maintain an integrity level, so that papers that are published are of high quality and without errors, since once the grant is denied due to negligence in the citation, that particular company cannot apply for a grant again, it will cost the company its resources, money and time, Masic, I. (2013).
+
+
+<BR>
+
+---
+
+---
+
+<B>
+```{r Libraries, warning=FALSE, message=FALSE}
+
+# Library Used in this project
+
+library(readxl)
+library(dplyr)
+library(magrittr)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+library(RColorBrewer)
+library(DT)
+
+#Data source
+
+LizardsSet = read_excel("C://Users//User//OneDrive//Documents//ALY_6010//Datasets//lizards_project4.xlsx")
+
+
+```
+
+
+<BR>
+
+---
+
+---
+
+<BR>
+
+<CENTER>
+<P><BR>
+<FONT SIZE=3, COLOR="#051D6B">
+<B> <U> ANALYSIS OF DATA </U> </B> 
+</FONT>
+</CENTER>
+    
+
+<BR>
+<FONT SIZE = 4, COLOR ="051D6B">
+<BR><B> Exercise 1, Descriptive Statistics Of Lizard Dataset </B>
+</FONT>
+<BR>
+
+<BR>
+<FONT SIZE = 3, COLOR ="051D6B">
+<BR><B>In this exercise I will be displaying some of the descriptive statistics from our current data set </B>
+</FONT>
+<BR>
+<B>
+    
+```{r}
+# Generating objects
+Length = LizardsSet$Length
+HR = LizardsSet$HeartRate
+Gender = LizardsSet$Sex
+
+#1. stats description
+MeanL = mean(Length)
+MeanHR = mean(HR)
+
+#Standard Deviation
+SDL = sd(Length)
+SDHR = sd(HR)
+
+#Median
+MedianL = median(Length)
+MedianHR =  median(HR)
+
+#Variance
+VarL = var(Length)
+VarHR = var(HR)
+
+#Maximum Value
+MaxHR = max(HR)
+MaxL = max(Length)
+
+#Minimum Value
+MinL = min(Length)
+MinHR = min(HR)
+
+#Range
+RangeL  = MaxL  - MinL
+RangeHR = MaxHR - MinHR
+
+#Creating object
+VectorL = c(MeanL,MedianL,SDL,VarL,MinL,MaxL,RangeL)
+VectorHR = c(MeanHR,MedianHR,SDHR,VarHR,MinHR,MaxHR,RangeHR)
+
+MainVec = c(VectorL,VectorHR)
+
+#Creating Matrix and table
+Matrix1 = matrix(MainVec,nrow = 2, byrow = TRUE)
+Variables = c("Mean", "Median","SD","Variance","Min value","Max Value", "Range")
+Values = c("Length of Lizard","Heart rate of Lizard")
+
+colnames(Matrix1) = Variables
+rownames(Matrix1) = Values
+
+knitr::kable(Matrix1, caption = "Descriptive Statistics of Lizards Dataset") %>% 
+  kableExtra::kable_styling(bootstrap_options = "striped", "Hover")
+
+
+
+```
+
+
+<BR>
+<FONT SIZE = 3, COLOR ="#051D6B">
+<BR><B> Above table shows the descriptive statistics which shows the measures of central tendency, measures of dispersion.The data set consist of values from ``r MinL`` to ``r MaxL`` related to the variable Length of Lizard and regarding the heart rate the minimum values is ``r MinHR`` to ``r MaxHR``, since our standard deviation  and variance of both the variables is very low it signifies that the data is closely clustered around the mean value therefore decreasing the width and increasing the reliability of the data. </B>
+</FONT>
+<BR>
+
+---
+
+---
+
+<BR>
+
+<BR>
+<FONT SIZE = 4, COLOR ="051D6B">
+<BR><B> EXERCISE : 2, Testing differences between males and female lizard length in cm  </B>
+</FONT>
+<BR>
+
+<BR>
+<FONT SIZE = 3, COLOR ="051D6B">
+<BR><B> We know the variance of the two populations, now in this task we will be using that variance and will apply a Z-test formula which is shown in the above description.   
+Hypothesis can be defined as follows:    
+H0 : mean of the population 1 = mean of population 2   
+H1 : mean of the population 1 =/= mean of population 2
+</FONT>
+<BR>
+
+```{r}
+
+#Declaring Values for Confidence interval, if confidence interval is 99% then there is 1% significance level which is 0.01 which is called as Alpha.
+
+ConfInterval = (0.99)
+Alpha2 = 0.01
+
+
+#Observations:
+MaleObservations = 60
+FemaleObservations = 60
+#Degrees of Freedom
+DF2 = MaleObservations - 1
+
+
+#To get specific subset from the excel file we will use the code below:
+Male = subset(LizardsSet, subset = (LizardsSet$Sex=="MALE"))
+Female = subset(LizardsSet, subset = (LizardsSet$Sex=="FEMALE"))
+
+#To calculate the measures of central tendency.
+MeanLMale = round(mean(Male$Length,na.rm = T),2)
+MeanLFemale  = round(mean(Female$Length,na.rm =  T),2)
+
+
+#Calculating measures of Dispersion which is Standard Deviation.
+MaleLengthSD = round(sd(Male$Length),2)
+FemaleLengthSD = round(sd(Female$Length),2)
+
+#We already know the variance therefore
+MaleVar = 1.34
+FemaleVar = 1.18
+
+#Calculate the Z-Test
+ZTestValue22 = (MeanLMale - MeanLFemale)-(0) / sqrt((MaleVar/MaleObservations) +(FemaleVar/FemaleObservations))
+
+
+#Concluding hypothesis by comparing Test value to critical value(Critical Value Approach)
+DF = MaleObservations - 1
+CriticalValueR = round(qnorm(Alpha2/2,lower.tail = F),3)
+Hypothesis1 = ifelse(ZTestValue22 > CriticalValueR,"Reject H0","Fail To Reject H0")
+
+
+#P-Value Approach for T - Test
+PValueStats =  pnorm(ZTestValue22, lower.tail = F) #For right tail Test
+PValue = 2*(PValueStats)
+
+Hypothesis2 = ifelse(PValue > Alpha2 ,"Fail To Reject H0","Reject H0")
+
+
+#Table for Values
+
+VectorL2 = c(MeanLMale,MeanLFemale,MaleVar,FemaleVar,ZTestValue22,DF,CriticalValueR,PValue )
+MainVec2 = c(VectorL2)
+Matrix2 = matrix(MainVec2,nrow = 8,ncol = 1, byrow = TRUE)
+Variables2 = c("Mean Length of Males", "Mean Length of Females","Variance in Length of Males","Variance in Length of Females","Z-Test Value","Degrees of Freedom", "Critical Value of T on the right", "P- Value")
+Values2 = c("Values")
+
+colnames(Matrix2) = Values2
+rownames(Matrix2) = Variables2
+
+DT::datatable(Matrix2, caption = "Testing differences between males and female lizard length in cm ") 
+  
+  
+
+
+#Table for Hypothesis
+object2 = c(Hypothesis1, Hypothesis2)
+HypoTable2   = matrix(object2 , nrow=2,ncol = 1,  byrow = TRUE)
+Values2   = c("Hypothesis")
+Rows1 = c("Z-TestValue > CriticalValueR", "PValue > Alpha2")
+row.names(HypoTable2) = Rows1
+colnames(HypoTable2)  = Values2
+
+knitr::kable(HypoTable2) %>% 
+  kableExtra::kable_paper(full_width = F)
+
+
+#Density plot
+
+VectorDense = c(MeanLMale,MeanLFemale,MaleVar,FemaleVar,MaleLengthSD,FemaleLengthSD , ZTestValue22,DF,CriticalValueR,PValue, Alpha2)
+density(VectorDense, adjust = 1.5) %>% 
+  plot()
+
+abline(v=PValue, col = "Red", lwd = 2)
+abline(v=Alpha2, col = "purple", lwd = 2)
+abline(v=CriticalValueR, col = "Blue", lwd = 2)
+abline(v=ZTestValue22, col = "Orange", lwd = 2)
+
+text(x = PValue,
+     paste("Pvalue:", PValue ),
+     y = 0.03,
+     col = "Red",
+     cex = 0.8,
+     srt = 90,
+     pos = 2)
+
+text(x = Alpha2,
+     paste("Alpha :", Alpha2 ),
+     y = 0.04,
+     col = "purple",
+     cex = 0.020,
+     srt = 90,
+     pos = 4)
+
+text(x = CriticalValueR,
+     paste("CV :", CriticalValueR ),
+     y = 0.01,
+     col = "blue",
+     cex = 0.8,
+     srt = 90,
+     pos = 4)
+
+
+text(x = ZTestValue22,
+     paste("Z-Test :", ZTestValue22 ),
+     y = 0.030,
+     col = "orange",
+     cex = 0.8,
+     srt = 90,
+     pos = 4)
+
+
+```
+
+<BR>
+<FONT SIZE = 3, COLOR ="#051D6B">
+<BR><B> In the above task to display results I have generated three visualization, two tables and one density plot. In the density plot it is easy to visualize the difference between the P value which is ``r PValue``, Critical Value to the right which is ``r CriticalValueR``, and Alpha value which is ``r Alpha2``, now interpreting this values: as seen in the density plot P-Value is denoted in red which is greater than alpha which is denoted by purple line, shows that we cannot reject null hypothesis and Z-Test value which is lesser than Critical Value again denotes that we failed to reject null hypothesis therefore  
+1. According to Critical Value Approach Male and female lizards have the same length  
+2. According to P-value approach Male and Female lizards have the same length  
+Therefore we do not have enough evidence to reject null hypothesis.</B>
+</FONT>
+<BR>
+
+---
+
+---
+
+<BR>
+
+<BR>
+<FONT SIZE = 4, COLOR ="051D6B">
+<BR><B> Exercise : 3, Comparing length of two populations </B>
+</FONT>
+<BR>
+
+<BR>
+<FONT SIZE = 3, COLOR ="051D6B">
+<BR> In this exercise I will be comparing the length of the two population that is male and female lizards, before we will calculate the variances of both the population.<B>
+</B>
+</FONT>
+<BR>
+
+```{r}
+
+Alpha3 = 0.01
+VarianceMale3 = var(Male$Length)
+VarianceFemale3 = var(Female$Length)
+
+#According to Bluman an F test is used when we need to compare the variances and standard deviations between the two sets of population, therefore here we need to compare whether the variance of length of the female lizards is higher than that of the males.  
+
+FTest = VarianceMale3/VarianceFemale3
+
+#According to the table which contains F distribution values the critical value was calculated according to the Degrees of freedom in the denominator section and in the numerator section.Bluman, A. G. (2009), Therefore:
+
+CriticalValue3 = 1.84 
+
+#Or we can also use R to calculate the F critical value
+
+DF_3_M = MaleObservations - 1
+DF_3_F = FemaleObservations - 1
+
+FCriticalValue3 = round(qf(0.01, DF_3_M, DF_3_F,lower.tail=F),3)
+
+#Now comparing the F-Test with the Critical value we need to state the hypothesis:
+
+Hypothesis3 = ifelse(FTest > FCriticalValue3, "Reject H0" ,"Fail To Reject H0")
+
+
+PValueStats33 =  pnorm(FTest, lower.tail = F) #For right tail Test
+PValue3 = 2*(PValueStats33)
+
+#Table for Values
+
+VectorF1 = c(VarianceMale3, VarianceFemale3, FTest, FCriticalValue3, PValue3)
+MainVecF1 = c(VectorF1)
+MatrixF1 = matrix(MainVecF1,nrow = 5,ncol = 1, byrow = TRUE)
+VariablesF1 = c("Variance of Male Population", "Variance of Female Population","Test Value of F", "Critical Value of F", "P-Value")
+ValuesF1 = c("Values")
+
+colnames(MatrixF1) = ValuesF1
+rownames(MatrixF1) = VariablesF1
+
+knitr::kable(MatrixF1, caption = "Comparing the length of the two population that is male and female ") %>% 
+  kableExtra::kable_styling(bootstrap_options = "striped", "Hover")
+
+#Table for Hypothesis
+object3 = c(Hypothesis3)
+HypoTable3   = matrix(object3 , nrow=1,  byrow = TRUE)
+Values3   = c("Hypothesis")
+Rows3 = c("FTest > FCriticalValue")
+row.names(HypoTable3) = Rows3
+colnames(HypoTable3)  = Values3
+
+knitr::kable(HypoTable3) %>% 
+  kableExtra::kable_paper(full_width = F)
+
+
+
+```
+
+
+<BR>
+<FONT SIZE = 3, COLOR ="#051D6B">
+<BR><B> Since we need to confirm the hypothesis we tested in the above task we need to run the numbers using the F test, F-test is not the one on which we should rely on to get the hypothesis results but P-Value approach is also necessary.Therefore according to F-test value which is  ``r FTest`` comparing it to the ``r FCriticalValue3`` we do not have enough evidence to reject null hypothesis. Now coming back to the question is female length variance higher than the male variance?  
+So according to the data presented above we cannot reject the null hypothesis which states that there is no difference between the variance of the female and male length, therefore answer is that female length variance is same as the variance of male length.
+
+</B>
+</FONT>
+<BR>
+
+<BR>
+
+---
+
+---
+
+<BR>
+
+<BR>
+<FONT SIZE = 4, COLOR ="051D6B">
+<BR><B> Exercise : 4, Hypothesis Testing Of Mean Heart Rate  </B>
+</FONT>
+<BR>
+
+<BR>
+<FONT SIZE = 3, COLOR ="051D6B">
+<BR><B>In this exercise we will be calculating values to check whether the mean heart rate of female lizards are not equal with male lizards.  
+H0 : Heart rate are equal between male and female lizards  
+H1 : Heart rate are not equal between male and female lizards
+</B>
+</FONT>
+<BR>
+
+```{r}
+#Declaring Values for Confidence interval, if confidence interval is 99% then there is 1% significance level which is 0.01 which is called as Alpha.
+
+ConfInterval4 = (0.99)
+Alpha4 = 0.01
+
+#Observations:
+MaleObservations4 = 60
+FemaleObservations4 = 60
+#Degrees of Freedom
+DF4 = MaleObservations - 1
+
+
+
+#First calculate the measures of central tendency.
+MeanHRMale = round(mean(Male$HeartRate,na.rm = T),2)
+MeanHRFemale  = round(mean(Female$HeartRate,na.rm =  T),2)
+
+
+#Calculating measures of Dispersion which is Standard Deviation.
+MaleHRSD = round(sd(Male$HeartRate),2)
+FemaleHRSD = round(sd(Female$HeartRate),2)
+
+#We already know the variance therefore
+MaleVar4 = 0.34
+FemaleVar4 = 0.3
+
+
+#Calculate the Z-Test Value
+ZTestValue4= round((MeanHRMale - MeanHRFemale)-(0) / sqrt((MaleVar4/MaleObservations4) +(FemaleVar4/FemaleObservations4)),2)
+
+
+#Concluding hypothesis by comparing Test value to critical value(Critical Value Approach)
+Hypothesis6 = ifelse(ZTestValue4 > CriticalValueR ,"Reject H0","Fail To Reject H0" )
+
+
+#P-Value Approach for T - Test
+PValueStats4 =  pnorm(ZTestValue4,lower.tail = F) #For right tail Test
+PValue4 = (PValueStats4)  
+Hypothesis4 = PValue4 > Alpha4 
+
+
+Hypothesis7 = ifelse(PValue4 > Alpha4 ,"Fail To Reject H0", "Reject H0" )
+
+
+#Table for Values
+
+VectorHR4 = c(MeanHRMale ,MeanHRFemale ,MaleVar4,FemaleVar4,ZTestValue4,DF4,CriticalValueR,PValue4 )
+MainVec4 = c(VectorHR4)
+Matrix4 = matrix(MainVec4,nrow = 8,ncol = 1, byrow = TRUE)
+Variables4 = c("Mean Heart Rate of Males", "Mean Heart Rate of Females","Variance in Heart Rate of Males","Variance in Heart Rate of Females(BPM)","Z-Test Value","Degrees of Freedom", "Critical Value of on the right", "P- Value")
+Values4 = c("Values")
+
+colnames(Matrix4) = Values4
+rownames(Matrix4) = Variables4
+
+knitr::kable(Matrix4, caption = "Testing differences between males and female lizard Heart rate ") %>% 
+  kableExtra::kable_styling(bootstrap_options = "striped", "Hover")
+
+
+#Table for Hypothesis
+object2 = c(Hypothesis6, Hypothesis7)
+HypoTable2   = matrix(object2 , nrow=2,ncol = 1,  byrow = TRUE)
+Values2   = c("Hypothesis")
+Rows1 = c("Z-TestValue < CriticalValueR", "PValue > Alpha2")
+row.names(HypoTable2) = Rows1
+colnames(HypoTable2)  = Values2
+
+knitr::kable(HypoTable2) %>% 
+  kableExtra::kable_paper(full_width = F)
+
+
+```
+<BR>
+<FONT SIZE = 3, COLOR ="#051D6B">
+<BR><B> The results of this observation are same as the above task for length of the lizards but for this task we will be using heart rate of lizards, The critical value was calculated using two methods one was the traditional method to find the value and other was the R stats method.  
+In this task we can observe that Z-Test value which is ``r ZTestValue4`` is less than the critical value ``r CriticalValueR`` therefore null hypothesis cannot be rejected.  
+We also observed the P-value which is ``r PValue4`` is also more than the alpha which is ``r Alpha4`` hence null hypothesis is not rejected.
+  
+Hence we can conclude that from above data we do not have enough evidence to reject null hypothesis on 99% confidence level and 0.01 significance level therefore there is no significant difference between the heart rate of male and female lizards.</B>
+</FONT>
+<BR>
+
+<BR>
+
+---
+
+---
+
+<BR>
+<FONT SIZE = 4, COLOR ="051D6B">
+<BR><B> Exercise : 5, Calculating for differences between the two population in regards to heart rate of lizards </B>
+</FONT>
+<BR>
+
+<BR>
+<FONT SIZE = 3, COLOR ="051D6B">
+<BR><B>In this Exercise we will be testing for heart rate variances in the given two populations of lizards, hypothesis stated as follows:  
+H0 : No difference between variance of heart rate of two populations.   
+H1 : Mean heart rate variance is higher in females
+</B>
+</FONT>
+
+
+```{r}
+
+Alpha3 = 0.01
+VarianceMale5 = var(Male$HeartRate)
+VarianceFemale5 = var(Female$HeartRate)
+
+
+#According to Bluman an F test is used when we need to compare the variances and standard deviations between the two sets of population, therefore here we need to compare whether the variance of length of the female lizards is higher than that of the males.  
+
+FTest5 = VarianceFemale5/VarianceMale5 #Since we need highest value in the numerator therefore we will put Variance of Female
+
+#According to the table which contains F distribution values the critical value was calculated according to the Degrees of freedom in the denominator section and in the numerator section.Bluman, A. G. (2009), Therefore:
+
+CriticalValue5_1 = 1.84 
+
+#Or we can also use R to calculate the F critical value
+
+DF_5_M = MaleObservations - 1
+DF_5_F = FemaleObservations - 1
+
+FCriticalValue5_2 = round(qf(0.01, DF_3_M, DF_3_F,lower.tail=F),3)
+
+
+
+PValueStats55 =  pnorm(FTest5, lower.tail = F) #For right tail Test
+PValue55 = 2*(PValueStats55)
+
+#Now comparing the F-Test with the Critical value we need to state the hypothesis:
+
+Hypothesis5 = ifelse(FTest5 > FCriticalValue5_2 ,"Fail To Reject H0", "Reject H0")
+Hypothesis5_2 = ifelse(PValue55 > Alpha3 ,"Fail To Reject H0", "Reject H0" )
+
+
+#Table for Values
+
+VectorF2 = c(VarianceMale5, VarianceFemale5, FTest5, FCriticalValue5_2,PValue3)
+MainVecF2 = c(VectorF2)
+MatrixF2 = matrix(MainVecF2,nrow = 5,ncol = 1, byrow = TRUE)
+VariablesF2 = c("Variance of Male Population", "Variance of Female Population","Test Value of F", "Critical Value of F", "P-Value")
+ValuesF2 = c("Values")
+
+colnames(MatrixF2) = ValuesF2
+rownames(MatrixF2) = VariablesF2
+
+knitr::kable(MatrixF2, caption = "Testing differences between variance of males and female lizard Heart rate ") %>% 
+  kableExtra::kable_styling(bootstrap_options = "striped", "Hover")
+
+#Table for Hypothesis
+object5 = c(Hypothesis5, Hypothesis5_2)
+HypoTable5   = matrix(object5 , nrow=2, ncol=1, byrow = TRUE)
+Values5  = c("Hypothesis")
+Rows5 = c("FTest > FCriticalValue","PValue > Alpha2")
+row.names(HypoTable5) = Rows5
+colnames(HypoTable5)  = Values5
+
+knitr::kable(HypoTable5) %>% 
+  kableExtra::kable_paper(full_width = F)
+```
+
+
+<BR>
+<FONT SIZE = 3, COLOR ="#051D6B">
+<BR><B> We have use the same strategy as we have used in the task 3, we have derived different values which will help us in deriving hypothesis, We have taken two approaches into consideration to check whether how confident are we with confidence level of <Mark> 99%  </Mark> and significance level of <Mark> 1% </Mark> that will leave us an alpha value of ``r Alpha3``, So according to our value we will be deriving our hypothesis at 99% confidence level:  
+1. According to the Critical value approach we have rejected our null hypothesis the reason is that F-Test which is derived by two population variance is ``r FTest`` is less than the Critical value ``r FCriticalValue5_2 `` therefore accordingly we need to reject null hypothesis, Bluman, A. G. (2009).  
+2. According to P-Value Approach at 99% Confidence level with 1% significance level we get a P-Value of ``r PValue3`` this is greater than the ``r Alpha3`` then we accept null hypothesis. Bluman, A. G. (2009).
+
+According to data above we do not have enough evidence to reject null hypothesis and therefore there is no difference between variance of heart rate of two populations.
+</B>
+</FONT>
+<BR>
+
+
+<BR>
+
+---
+
+---
+
+<BR>
+<FONT SIZE = 4, COLOR ="051D6B">
+<BR><B> Exercise 6 </B>
+</FONT>
+<BR>
+
+<BR>
+<FONT SIZE = 3, COLOR ="051D6B">
+<BR><B>This exercise will focus on generating a hypothesis based on 2 different samples which are paired in nature, hypothesis can be defined as follows:  
+H0 : there is no effect of meditation on sleep quality   
+H1 : meditation has an effect on sleep quality
+</B>
+</FONT>
+<BR>
+
+```{r warning=FALSE}
+
+#Datasets
+Data1 = c(5.7, 7.8, 5.9, 5.6, 5.9, 6.8, 5.7, 3.9, 4.6, 4.5, 7.7, 6.3)
+Data2 = c(6.8, 8.7, 7.6, 6.2, 6.1, 7.7, 5.9, 4.5, 6.5, 6.1, 6.9, 9.2)
+
+#Observations
+n   = 12
+DF = n-1
+
+Mean6_1 = round(mean(Data1),2)
+Mean6_2 = round(mean(Data2,2))
+SD6_1 = round(sd(Mean6_1, na.rm = T),2)
+SD6_2 = round(sd(Mean6_2, na.rm = T),2)
+Matrix6 = matrix(c(Data1,Data2), nrow = 12, ncol = 4, byrow = F)
+
+DataS = as.data.frame(Matrix6)
+colnames(DataS) = c("Before Workshop","After Workshop", "Diff", "Diffsqr")
+DifferenceValue  = DataS %>% 
+  mutate(Difference = Data1 - Data2, DiffSqaure = Difference^2)
+
+SumDiff = sum(DifferenceValue$Difference)
+DifferenceBar = sum(DifferenceValue$Difference)/n
+DiffSumSq = sum(DifferenceValue$DiffSquare)
+
+DifferenceSD = sqrt((n*DiffSumSq - SumDiff^2))/(n*(DF))
+
+TTest = DifferenceBar/(DifferenceSD/sqrt(n))
+
+Alpha6  = 0.01
+
+CriticalValue8  = qnorm(Alpha6/2,DF)
+
+Hypothesis9 = ifelse(TTest > CriticalValue8 ,"Fail To Reject H0", "Reject H0")
+
+TableSleep = matrix(c(Data1,Data2), ncol = 4, byrow = F)
+colnames(DataS)  = c("Before Workshop","After Workshop", "Difference", "Square of Difference" )
+FinalTable6  = knitr::kable(DataS, caption = "This table shows calculated difference values before and after meditation workshop") %>% 
+  kableExtra::kable_classic_2()
+FinalTable6
+
+
+
+#Calculating for Difference
+
+Difference1 = (Data1)-(Data2) #differences of the values
+SumDiff2 = sum(Difference1^2) 
+MeanDiff = sum(Difference1)/n #Mean of the differences
+DiffSD = sqrt((n*SumDiff2)-(SumDiff2))/sqrt (n*(DF))#the standard deviation of differences
+
+#Calculating Test Value
+StandError = DiffSD/sqrt(n) #Standard Error of differences
+TestValue6 = MeanDiff-0/DiffSD/sqrt(n) #Test Value
+
+#CV value retrieved from the table provided in Bluman, A. G. (2009).
+CV6 = -2.718 #SInce our test value is negative 
+Hypothesis10 = ifelse(TestValue6<CV6,"Reject H0","Fail To Reject H0" )
+
+
+
+#Creating object to store multiple objects
+
+PopObjects = c(Difference1,SumDiff2,MeanDiff,DiffSD,StandError,TestValue6)
+PopNames = c("Difference","Difference of the sum","Mean Difference", "Standard Deviation Difference","Standard Error","Test value of Differences")
+
+#Creating Matrix
+Matrix8 = matrix(data = c(PopNames,PopObjects),nrow = 6,ncol = 2,byrow = F)
+colnames(Matrix8) =  c("Measures","Values")
+
+
+
+#Table for Hypothesis
+object6 = c(Hypothesis10)
+HypoTable6   = matrix(object2 , nrow=1,ncol = 1,  byrow = TRUE)
+Values6   = c("Hypothesis")
+Rows6 = c("Z-TestValue < CriticalValueR")
+row.names(HypoTable6) = Rows6
+colnames(HypoTable6)  = Values6
+
+knitr::kable(HypoTable6)%>%
+  kableExtra::kable_classic_2()
+
+#task 6.3
+Final6 = knitr::kable(Matrix8)%>%
+  kableExtra::kable_paper()
+Final6
+
+```
+
+
+<BR>
+<FONT SIZE = 3, COLOR ="#051D6B">
+<BR>To find whether there is difference between the two population by means of meditation and sleep quality, therefore we have tested for the two populations differences which are dependent or paired with each other. Therefore we calculated for the test value of the differences which is ``r TestValue6`` which is less than the critical value which is ``r CV6`` and therefore here we do not have enough evidence to reject null hypothesis thus we have accepted it and rejected alternative hypothesis.  
+Hence,According to the data meditation has no effect on the sleep quality, therefore we fail to reject null hypothesis at 99% Confidence level and 1% significance level.  <B> 
+</B>
+</FONT>
+<BR>
+
+
+<BR>
+
+---
+
+---
+
+<BR>
+
+<CENTER>
+<P><BR>
+<FONT SIZE=3, COLOR="#051D6B">
+<B> <U> CONCLUSION </U> </B> 
+</FONT>
+</CENTER>
+
+This data set consist of 120 observation from which 60 sets of males and 60 sets of females, this 120 sets consist of heart rate and length. From the data set we have analyze the data for hypothesis testing. 
+This project included using different analytical skills such as visualization and Hypothesis testing.Most of the data shows no difference in the two population, in regards to heart rate and length. Different hypothesis testing approaches are used in this project Critical value and P-Value approach. As we can see in this project critical value is an important aspect when we are testing for hypothesis, whereas the P-Value approach is more common and is a quality test since it provides us with precision points in the set of observations of null hypothesis for hypothesis testing.In this project we have used three types of test which is Z-Test, F-Test and T-test. T-Test used in this project was different than the other T-Test since it was used to calculate for differences between the two population. Most of the test had the same results while rejecting null hypothesis, therefore showing no significant difference between the newly collected data. When two data are paired or dependent on each other we use a very special T -Test which will calculate the means of the dependent variables and further derive values which will result in decision of the hypothesis whether to accept or reject the null hypothesis.   
+
+Considering the hypothesis testing with the above data for two differences we also need to keep in mind about the errors which can occur, such as type 1 error which means we reject a null hypothesis which is actually true about the population, whereas type 2 error results when we accept the null hypothesis which is supposed to be false in the whole population. Therefore errors should be considered seriously since in medical field it can be dangerous to develop drugs with wrong predictions. Therefore it is recommended to use a P-value approach every time for hypothesis testing to avoid any errors which can make the data invalid.  
+
+This project sharpened by skills to do hypothesis testing, it also helped me in learning new F-Test approach to define the hypothesis testing, practicing calculating different test such as Z-test, F-Test and T-test will help me in advancing in my career and will help me to increase my knowledge in analytics which will help me to make better decisions in the near future relating to the actual industrial experience.
+
+
+<BR>
+
+---
+
+---
+
+<BR>
+
+<CENTER>
+<P><BR>
+<FONT SIZE=3, COLOR="#051D6B">
+<B> <U> REFERENCES </U> </B> 
+</FONT>
+</CENTER>
+
+
+Bluman, A. G. (2009). Elementary statistics: A step by step approach. New York: McGraw-Hill Higher Education.  
+
+Duncan, D. B. (1955). Multiple range and multiple F tests. biometrics, 11(1), 1-42.  
+
+Fisher, R. A., & Tippett, L. H. C. (1928, April). Limiting forms of the frequency distribution of the largest or smallest member of a sample. In Mathematical proceedings of the Cambridge philosophical society (Vol. 24, No. 2, pp. 180-190). Cambridge University Press.  
+
+Kumar, A. (2015). Hypothesis testing in medical research: a key statistical application. Journal of Universal College of Medical Sciences, 3(2), 53-56.  
+
+Magnello, M. E. (2005). karl pearson, paper on the chi-square goodness of fit test (1900). In Landmark Writings in Western Mathematics 1640-1940 (pp. 724-731). Elsevier Science.  
+
+Masic, I. (2013). The importance of proper citation of references in biomedical articles. Acta Informatica Medica, 21(3), 148.  
+
+Meiri, S. (2010). Length–weight allometries in lizards. Journal of Zoology, 281(3), 218-226.  
+
+Pearson, K. (1922). On the χ 2 test of goodness of fit. Biometrika, 14(1/2), 186-191.  
+
+Santini, A. (2018). The importance of referencing. The Journal of Critical Care Medicine, 4(1), 3.  
+
+<BR>
+
+---
+
+---
+
+<BR>
+
+<CENTER>
+<P><BR>
+<FONT SIZE=3, COLOR="#051D6B">
+<B> <U> APPENDIX </U> </B> 
+</FONT>
+</CENTER>
+
+A R File has been attached with this report named as : M4Project.rmd
+
+
+
+<BR>
+
+---
+
+---
+
+    
